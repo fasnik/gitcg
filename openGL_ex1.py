@@ -29,9 +29,9 @@ def line(x0:float, y0:float, x1:float, y1:float, lineWidth:float = 2.):
     glVertex2f(x1,y1)
     glEnd()
 
-def draw_vertex_array(mode, first, count):
+def draw_vertex_array(mode, count, type, indices:list):
     glEnableClientState(GL_VERTEX_ARRAY)
-    glDrawArrays( mode , first , count ) 
+    glDrawElements( mode , count , type , indices ) 
     glDisableClientState(GL_VERTEX_ARRAY)
 
 def draw():
@@ -48,13 +48,16 @@ def draw():
     ]
 
     indices = [
-        0,1,2,3
+        0,1,
+        1,2,
+        2,3,
+        3,0,
     ]
     glColor3f(1.,1.,1.)
     #line(0.0,0.0,0.5,0.5,10)
     glVertexPointer( 2, GL_FLOAT, 0, vertices)
     glIndexPointerf(indices)
-    draw_vertex_array(GL_LINES, 0, 4)
+    draw_vertex_array(GL_LINES, len(indices), GL_UNSIGNED_INT, indices)
     glFlush()
 
 def keyboard(key, x, y):
