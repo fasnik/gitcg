@@ -7,7 +7,8 @@ def Model():
     #world matrix
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
-    
+    glTranslate(-0.5, -0.5, 0)
+
 def View():
     #cam position
     pass
@@ -40,24 +41,43 @@ def draw():
     #View()
 
     vertices =[
-        0.0,0.1,
-        0.1,0.2,
-        0.2,0.3,
-        0.6,0.4,
-        0.4,0.5,
+        0.0,    0.0,
+        0.5,    0.0,
+        1.0,    0.0,
+
+        0.0,    0.5,
+        0.5,    0.5,
+        1.0,    0.5,
+
+        0.0,    1.0,
+        0.5,    1.0,
+        1.0,    1.0,
     ]
 
     indices = [
-        0,1,
-        1,2,
-        2,3,
-        3,0,
+        0,1,3,
+        1,4,3,
+        1,2,4,
+        2,5,4,
     ]
     glColor3f(1.,1.,1.)
-    #line(0.0,0.0,0.5,0.5,10)
+    glPointSize(10)
     glVertexPointer( 2, GL_FLOAT, 0, vertices)
     glIndexPointerf(indices)
-    draw_vertex_array(GL_LINES, len(indices), GL_UNSIGNED_INT, indices)
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+    draw_vertex_array(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, indices)
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+
+    glBegin(GL_LINES)
+    
+    glVertex2f(-1,0)
+    glVertex2f(1,0)
+
+    glVertex2f(0,1)
+    glVertex2f(0,-1)
+
+    glEnd()
     glFlush()
 
 def keyboard(key, x, y):
@@ -66,7 +86,7 @@ def keyboard(key, x, y):
 def main():
     
     # INIT
-    glutInit(sys.argv)
+    glutInit()
     glutInitWindowSize(600,600)
     glutInitWindowPosition(1500,100)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
