@@ -26,7 +26,7 @@ def Screen(w : int,  h :int):
 
 #MT functions
 def implicitFunc(X :np.array):
-    f = X[0]**2 + X[1]**2 - 1.
+    f = X[0]**2 + X[1]**2 + X[2]**2- 1.
     return f
 
 def distance(pointA :np.array, pointB :np.array):
@@ -60,22 +60,20 @@ def evaluteProjection(vec: np.array, normal :np.array, mid_point :np.array):
 def drawMTGeometry():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     Model()
-    glPointSize(5)
+    glPointSize(1)
     glColor3f(1.,1.,1.)
     
     vertices = [ ]
-    x_range = np.arange (-1, 1.01, 0.01)
-    y_range = np.arange (-1, 1.01, 0.01)
+    x_range = np.arange (-1, 1.1, 0.1)
+    y_range = np.arange (-1, 1.1, 0.1)
+    z_range = np.arange (-1, 1.1, 0.1)
     for x in x_range:
         for y in y_range:
-            if abs(implicitFunc(np.array([x,y]))) < 0.01:
-                vertices.append(x)
-                vertices.append(y)
-                vertices.append(0)
-
-    edges = [   0, 1,
-                1, 2    
-            ]
+            for z in z_range:
+                if abs(implicitFunc(np.array([x,y,z]))) < 0.1:
+                    vertices.append(x)
+                    vertices.append(y)
+                    vertices.append(z)
 
     glBegin(GL_POINTS)
     for i in range(0,len(vertices)-1,3):
