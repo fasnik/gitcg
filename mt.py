@@ -106,7 +106,7 @@ def keyboard(key, x, y):
     pass
 
 def f(x,y):
-    r = y**2 + x**2 - 1.
+    r = y**2 + x**2 - 1. #f(x,y) =0 raiz
     return r
 
 def rootFind(p1 :np.array, p2 :np.array):
