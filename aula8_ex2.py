@@ -1,4 +1,5 @@
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from math import *
 import numpy as np
@@ -11,12 +12,15 @@ def Model():
 
 def View():
     #cam position
-    pass
+    gluLookAt(  0.,0.,5.,
+                0.,0.,0.,
+                0.,1.,0.)
 
 def Projection():
     #projection matrix
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
+    glFrustum(-1., 1., -1., 1., 1., 10.)
 
 def Screen(w : int,  h :int):
     # screen matrix
@@ -38,8 +42,8 @@ def Cisalhamento():
 def Cisalhamento2():
     glLoadIdentity()
     a = radians(tan(30))
-    glMultMatrixf(( 1., 0 , 0., 0.,
-                    a , 1., 0., 0.,
+    glMultMatrixf(( 1., a , 0., 0.,
+                    0 , 1., 0., 0.,
                     0., 0., 1., 0.,
                     0., 0., 0., 1.))
 
@@ -65,7 +69,9 @@ def draw():
 
     glColor3f(1.,1.,0.)
     glScale(0.5, 0.5, 0)
-    glTranslate(-0.6,0.,0)
+    glTranslate(-0.6,0.,0.)
+    print("Matriz 1\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
@@ -76,7 +82,11 @@ def draw():
     # PLOT SQUARE 2
 
     glColor3f(1.,0.,0.)
+    glLoadIdentity()
+    glScale(0.5, 0.5, 0)
     glTranslate(0.6,0.,0.)
+    print("Matriz 2\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
@@ -88,6 +98,8 @@ def draw():
 
     glColor3f(1.,0.,1.)
     glLoadIdentity()
+    print("Matriz 3\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
@@ -99,6 +111,8 @@ def draw():
 
     glColor3f(1.,0.,1.)
     ReflectionX()
+    print("Matriz 4\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
@@ -110,6 +124,8 @@ def draw():
 
     glColor3f(1.,0.,1.)
     ReflectionY()
+    print("Matriz 5\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
@@ -121,6 +137,10 @@ def draw():
 
     glColor3f(1.,0.5,1.)
     Cisalhamento2()
+    View()
+    Projection()
+    print("Matriz 6\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
     glBegin(GL_LINE_LOOP)
     for p in s1:
         glVertex3f( p[0],
