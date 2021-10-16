@@ -26,11 +26,11 @@ def Screen(w : int,  h :int):
     # screen matrix
     glViewport(0,0, w, h)
 
-def ReflectionX():
+def ReflectionY():
     glLoadIdentity()
     glScale(-1.,1.,1.)
 
-def ReflectionY():
+def ReflectionX():
     glLoadIdentity()
     glScale(1.,-1.,1.)
 
@@ -66,9 +66,11 @@ def draw():
     s1 = Square()
     
     # PLOT SQUARE 1
-
+    print("Matriz Identidade:\n")
+    print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
+    glPushMatrix()
     glColor3f(1.,1.,0.)
-    glScale(0.5, 0.5, 0)
+    glScale(0.5, 0.5, 1.)
     glTranslate(-0.6,0.,0.)
     print("Matriz 1\n")
     print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')
@@ -110,6 +112,7 @@ def draw():
     # PLOT SQUARE 4
 
     glColor3f(1.,0.,1.)
+    glLoadIdentity()
     ReflectionX()
     print("Matriz 4\n")
     print(glGetFloat(GL_MODELVIEW_MATRIX),'\n')

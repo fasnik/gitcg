@@ -28,6 +28,8 @@ def ControlPoints():
             (0.,  0.,  0.),
             (0.,  0.5,  0.),
             (0.5,  0.5,  0.),
+            (0.2,  -0.8,  0.),
+            (-0.2,  0.8,  0.)
     )
     return points
 
@@ -38,7 +40,7 @@ def draw():
     glLineWidth(2)
     glColor3f(1.,1.,1.)
 
-    u = np.arange (0, 1.1, 0.1) # parametro u no intevalo [0,1] com passo 0.1
+    u = np.arange (0, 1.01, 0.01) # parametro u no intevalo [0,1] com passo 0.1
     points = ControlPoints()
 
     # glMap1f: gera objetos unidimensionais
@@ -70,6 +72,7 @@ def draw():
                     p[1],
                     p[2])
     glEnd()
+
     glFlush()
 
 # CALLBACK FUNCTIONS
